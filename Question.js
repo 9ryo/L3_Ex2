@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const Question = ({ image, questionText, selectedAnswer, onAnswerChange }) => {
+const Question = ({ image, questionText, options, selectedAnswer, onAnswerChange }) => {
     return (
         <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ddd' }}>
             <Image
@@ -31,10 +31,13 @@ const Question = ({ image, questionText, selectedAnswer, onAnswerChange }) => {
                 selectedValue={selectedAnswer}
                 onValueChange={(value) => onAnswerChange(value)}
             >
+                {/* Default option */}
                 <Picker.Item label="Select an answer..." value="" />
-                <Picker.Item label="Cat" value="Cat" />
-                <Picker.Item label="Dog" value="Dog" />
-                <Picker.Item label="Elephant" value="Elephant" />
+
+                {/* Dynamically render all provided options */}
+                {options.map((option, index) => (
+                    <Picker.Item key={index} label={option} value={option} />
+                ))}
             </Picker>
         </View>
     );
